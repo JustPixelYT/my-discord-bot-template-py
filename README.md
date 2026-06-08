@@ -72,10 +72,12 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Edit `.env` with your configuration:
+Edit `.env` with your configuration (see `.env.example` for all available options):
 
 ```env
-DISCORD_TOKEN=your_bot_token_here
+TOKEN=your_bot_token_here
+GUILD_ID=your_server_id_here
+HUGGINGFACE_API=your_huggingface_api_key_here
 BOT_PREFIX=!
 ```
 
@@ -91,9 +93,7 @@ python bot.py
 
 On successful startup, you'll see:
 ```
-Bot is ready!
-Logged in as: YourBotName#1234
-Bot ID: 123456789012345678
+YourBot#1234 has successfully connected to Discord's API! It is now online.
 ```
 
 ## 📖 Command Reference
@@ -101,7 +101,7 @@ Bot ID: 123456789012345678
 | Command | Description | Permission Level | Example Usage |
 |---------|-------------|------------------|---------------|
 | `ping` | Check bot latency and response | Everyone | `!ping` |
-| `help` | Display available commands | Everyone | `!help` |
+| `help` | Display available commands and summon support | Everyone | `!help` or `!help reason` |
 | `kick` | Remove a member from the server | Moderator | `!kick @user reason` |
 | `ban` | Ban a member from the server | Administrator | `!ban @user reason` |
 
@@ -118,17 +118,20 @@ Bot ID: 123456789012345678
 1. Navigate to "Bot" in the left sidebar
 2. Click "Add Bot" → "Yes, do it!"
 3. Under "Token", click "Reset Token" to reveal your bot token
-4. **Copy this token** and paste it in your `.env` file
+4. **Copy this token** and paste it in your `.env` file as `TOKEN`
 
 ### 3. Configure Bot Permissions
 
 1. Still in the "Bot" section, scroll to "Privileged Gateway Intents"
-2. Enable required intents (typically: Server Members Intent, Message Content Intent)
+2. Enable required intents:
+   - Server Members Intent (for kick/ban commands)
+   - Message Content Intent (for reading messages)
 3. Under "Permissions", set:
    - Kick Members
    - Ban Members
    - Send Messages
    - Embed Links
+   - Manage Channels (optional, for channel-specific features)
 
 ### 4. Invite Bot to Your Server
 
@@ -143,14 +146,21 @@ Bot ID: 123456789012345678
 ```
 my-discord-bot-template-py/
 ├── .env                  # Environment variables (DO NOT COMMIT)
-├── .env.example          # Template for .env
-├── .gitignore            # Git ignore rules
+├── .env.example          # Template for .env with all variables explained
+├── .gitignore            # Git ignore rules (includes .env)
 ├── bot.py                # Main bot entry point
 ├── requirements.txt      # Python dependencies
 ├── README.md             # This file
-└── cogs/                 # Extend with custom commands
+└── cogs/                 # Extend with custom commands (future)
     └── README.md         # Instructions for adding cogs
 ```
+
+### Key Files Explained
+
+- **`bot.py`** - Main bot code with all commands and event handlers
+- **`requirements.txt`** - Python package dependencies (install with `pip install -r requirements.txt`)
+- **`.env.example`** - Template showing all required environment variables with comments
+- **`.env`** - Your actual configuration (created from `.env.example`, never committed)
 
 ## 🤝 Contributing
 
