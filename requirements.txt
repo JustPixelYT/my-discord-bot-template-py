@@ -1,0 +1,4 @@
+discord>=2.3.0
+python-dotenv>=1.0.0
+huggingface_hub>=0.20.0
+aiohttp>=3.9.0
